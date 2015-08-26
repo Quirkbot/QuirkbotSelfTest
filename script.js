@@ -14,7 +14,7 @@ if(!arduino){
 
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
-	//return;
+	return;
 }
 
 var UUID = uuid.v4().replace(/-/g, '').substring(0, 16);
@@ -41,7 +41,7 @@ utils.pass()
 	'"' + arduino + '" '
 	+ '--verbose-upload '
 	+ '--port '+ comPort +' '
-	+ '--board QuirkbotArduinoHardware:quirkbot-avr:quirkbot '
+	+ '--board QuirkbotArduinoHardware:avr:quirkbot '
 	+ '--upload '
 	+ '"' + path.resolve('firmware', 'firmware.ino') + '" '
 ))
