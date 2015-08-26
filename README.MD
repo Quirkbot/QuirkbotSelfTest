@@ -65,7 +65,7 @@ Using COM port: COM3
 Using UUID: 8d19c840e2284315
 Compiling and uploading, please wait...
 ```
-The upload process may take a few seconds, so please be patient. The Quirkbot leds should indicate when it goes into bootloader mode (mouth leds pulsating), and when the upload is completed (all leds will blink quickly counter clockwise).
+The upload process may take a few seconds, so please be patient. The Quirkbot LEDs should indicate when it goes into bootloader mode (mouth LEDs pulsating).
 
 ---
 #### 05 - Verify for SUCCESS or FAILED
@@ -94,8 +94,10 @@ FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
 
 If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig.
 
-##### If the test fails:
-All the 4 Leds will blink, for 4 seconds, with a 200 milliseconds interval between the blinks.
+#### If the test fails:
+All the 4 "eyes and mouth" LEDs will blink, for 4 seconds, with a 200 milliseconds interval between the blinks.
 
-##### If the test succeds:
-Only the eyes Leds will pulsate (smoothly, like it is breathing)
+#### If the test succeds:
+Only the 2 "eyes" LEDs will pulsate smoothly (like it is "breathing").
+
+**Attention:** *Before displaying the results of the test The Quirkbot LEDs will display the "start animation". All LEDs will blink quickly, one by one, spinning in a clockwise fashion, finishing by the 2 eyes blinking quickly simultaneously. This is should not be confused with a failed test!*
