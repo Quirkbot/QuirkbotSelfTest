@@ -15,6 +15,7 @@ If the the upload is sucessful, the id will also be apended to a ```UUIDs.txt```
  - Install the latest version of the [QuirkbotArduinoLibrary](https://github.com/Quirkbot/QuirkbotArduinoLibrary/releases).
  - Install **manually** the latest version of the [QuirkbotArduinoHardware](https://github.com/Quirkbot/QuirkbotArduinoHardware/releases).
 
+
  *It is very important that you do the manual installation of QuirkbotArduinoHardware. If your directory structure is not like the example below, it will fail!*
 
  ```
@@ -22,6 +23,5 @@ If the the upload is sucessful, the id will also be apended to a ```UUIDs.txt```
     \---hardware
         \---QuirkbotArduinoHardware
  ```
-
 
  ## Instructions
