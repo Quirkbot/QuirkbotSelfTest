@@ -41,7 +41,7 @@ utils.pass()
 	'"' + arduino + '" '
 	+ '--verbose-upload '
 	+ '--port '+ comPort +' '
-	+ '--board QuirkbotArduinoHardware:avr:quirkbot '
+	+ '--board QuirkbotArduinoHardware:quirkbot-avr:quirkbot '
 	+ '--upload '
 	+ '"' + path.resolve('firmware', 'firmware.ino') + '" '
 ))
