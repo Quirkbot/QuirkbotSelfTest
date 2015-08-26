@@ -48,13 +48,7 @@ On a standard Windows 7 (english) installation, it should be:
 Make sure there is a Quirkbot turned ON and connected to the computer. Use the "Device Manager" to discover what is the port it is connected to. On Windows, it should be something like ```COM3```,```COM4```,```COM5```, etc.
 
 ---
-#### 04 - Make note of where Arduino binary is installed
-On a standard Windows 7 (english) installation, it should be:
-```
-\Program Files\Arduino\arduino_debug.exe
-```
----
-#### 05 - Run the upload script
+#### 04 - Run the upload script
 First, enter in the directory of this repository, eg:
 ```
 $ cd QuirkbotSelfTest
@@ -74,7 +68,7 @@ Compiling and uploading, please wait...
 The upload process may take a few seconds, so please be patient. The Quirkbot leds should indicate when it goes into bootloader mode (mouth leds pulsating), and when the upload is completed (all leds will blink quickly counter clockwise).
 
 ---
-#### 06 - Verify for SUCCESS or FAILED
+#### 05 - Verify for SUCCESS or FAILED
 If the upload is successful, you should see the word SUCCESS in the end of the output:
 ```
 Using Arduino: \Program Files\Arduino\arduino_debug.exe
@@ -96,7 +90,7 @@ FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
 
 
 ---
-#### 07 - Execute self test
+#### 06 - Execute self test
 
 If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig.
 
