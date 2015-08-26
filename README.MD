@@ -75,15 +75,6 @@ The upload process may take a few seconds, so please be patient. The Quirkbot le
 
 ---
 #### 06 - Verify for SUCCESS or FAILED
-If there were any errors during the process, you will see the word FAILED! in the end of the output, followed byt the actual error message:
-```
-Using Arduino: \Program Files\Arduino\arduino_debug.exe
-Using COM port: COM3
-Using UUID: 8d19c840e2284315
-Compiling and uploading, please wait...
-FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
-```
-
 If the upload is successful, you should see the word SUCCESS in the end of the output:
 ```
 Using Arduino: \Program Files\Arduino\arduino_debug.exe
@@ -93,11 +84,24 @@ Compiling and uploading, please wait...
 SUCCESS!
 ```
 
+If there were any errors during the process, you will see the word FAILED! in the end of the output, followed by the actual error message:
+```
+Using Arduino: \Program Files\Arduino\arduino_debug.exe
+Using COM port: COM3
+Using UUID: 8d19c840e2284315
+Compiling and uploading, please wait...
+FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
+```
+
+
+
 ---
 #### 07 - Execute self test
 
-If the upload was SUCCESSful, the Quirkbot is ready to be placed in the test jig.
+If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig.
 
-**If the test fails**: all the 4 Leds will blink, for 4 seconds, with a 200 milliseconds interval between the blinks.
+##### If the test fails:
+All the 4 Leds will blink, for 4 seconds, with a 200 milliseconds interval between the blinks.
 
-**If the test succeds**: only the eyes Leds will pulsate (smoothly, like it is breathing)
+##### If the test succeds:
+Only the eyes Leds will pulsate (smoothly, like it is breathing)
