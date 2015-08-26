@@ -49,6 +49,7 @@ utils.pass()
 	return new Promise(function(resolve, reject){
 		if(result.stdout.indexOf('Thank you.') === -1){
 			console.log(result.stdout)
+			console.log(result.stderr)
 			reject(result);
 		}
 		else{
