@@ -56,7 +56,7 @@ utils.pass()
 	})
 })
 .then(utils.appendFile('UUIDs.txt', UUID + '\n'))
-.catch(function(){
+.then(function(){
 	console.log('SUCCESS!');
 })
 .catch(function(error){
