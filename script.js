@@ -38,12 +38,12 @@ utils.pass()
 	.then(utils.writeFile(path.resolve('firmware', 'firmware.ino'), code))
 })
 .then(utils.execute(
-	arduino
-	+ ' --verbose-upload '
-	+ ' --port '+ comPort +' '
-	+ ' --board QuirkbotArduinoHardware:avr:quirkbot '
-	+ ' --upload '
-	+ path.resolve('firmware', 'firmware.ino')
+	'"' + arduino + '" '
+	+ '--verbose-upload '
+	+ '--port '+ comPort +' '
+	+ '--board QuirkbotArduinoHardware:avr:quirkbot '
+	+ '--upload '
+	+ '"' + path.resolve('firmware', 'firmware.ino') + '" '
 ))
 .then(function(result){
 	return new Promise(function(resolve, reject){
