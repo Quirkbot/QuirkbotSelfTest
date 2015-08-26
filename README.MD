@@ -19,12 +19,12 @@ Requirements
  It is very important that you do the manual installation of QuirkbotArduinoHardware. If your directory structure is not like the example below, it will fail!
 
  ```
- sketchbook directory]
-    \---hardware
-        \---QuirkbotArduinoHardware
+ 	sketchbook directory]
+    	\---hardware
+        	\---QuirkbotArduinoHardware
  ```
- 
-aaaa
+
+
 
  Instructions
  ============
