@@ -11,15 +11,10 @@ Requirements
  Before doing anything else, make sure you comply to this list of requirements:
 
  - Download the latest version of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
-
  - Install version 1.6.5 of [Arduino](https://www.arduino.cc/en/Main/Software).
-
  - Install the latest version of  [Node.js](https://nodejs.org/download).
-
  - Install the latest version of the [QuirkbotArduinoLibrary](https://github.com/Quirkbot/QuirkbotArduinoLibrary/releases).
-
  - Install **manually** the latest version of the [QuirkbotArduinoHardware](https://github.com/Quirkbot/QuirkbotArduinoHardware/releases).
-
 
  It is very important that you do the manual installation of QuirkbotArduinoHardware. If your directory structure is not like the example below, it will fail!
 
@@ -29,4 +24,5 @@ Requirements
         \---QuirkbotArduinoHardware
  ```
 
- ## Instructions
+ Instructions
+ ============
