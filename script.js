@@ -3,6 +3,7 @@ var fs = require('fs');
 var execSync = require('child_process').execSync;
 var path = require('path');
 var utils = require('./utils');
+var endOfLine = require('os').EOL;
 
 var arduino = process.argv[2] || '/Applications/Arduino.app/Contents/MacOS/Arduino';
 var comPort = process.argv[3];
@@ -28,9 +29,9 @@ utils.pass()
 .then(utils.readFile(path.resolve('./', 'base.ino')))
 .then(function (data) {
 	var codeString = '';
-	codeString += 'Bot::forceSaveUuid=true; \n';
+	codeString += 'Bot::forceSaveUuid=true;'+endOfLine;
 	for (var i = 0; i < UUID.length; i++) {
-		codeString += 'Bot::uuid['+i+']=\''+UUID[i]+'\'; \n';
+		codeString += 'Bot::uuid['+i+']=\''+UUID[i]+'\';'+endOfLine;
 	}
 	var code = data.replace('/** GENERATED UUID **/', codeString);
 	console.log('Compiling and uploading, please wait...')
@@ -56,7 +57,7 @@ utils.pass()
 		}
 	})
 })
-.then(utils.appendFile('UUIDs.txt', UUID + '\n'))
+.then(utils.appendFile('UUIDs.txt', UUID+endOfLine))
 .then(function(){
 	console.log('SUCCESS!');
 })
