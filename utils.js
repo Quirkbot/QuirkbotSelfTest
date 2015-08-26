@@ -80,7 +80,7 @@ var appendFile = function(path, content){
 		return new Promise(promise);
 	}
 }
-exports.appendFile = writeFile;
+exports.appendFile = appendFile;
 
 var readDir = function(path){
 	return function(){
