@@ -58,7 +58,7 @@ Then run the script, passing the Arduino path(1) as the first argument, and the 
 $ node script.js "\Program Files\Arduino\arduino_debug.exe" "COM3"
 ```
 
-If the script ix executed correctly, you should see an out put like this.
+If the script is executed correctly, you should see an out put like this.
 ```
 Using Arduino: \Program Files\Arduino\arduino_debug.exe
 Using COM port: COM3
