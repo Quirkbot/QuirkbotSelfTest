@@ -94,7 +94,7 @@ FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
 
 If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig.
 
-Place the Quirkbot in the jig, turn it on, and observe the feedback from the onboard LEDs to
+Place the Quirkbot in the jig, turn it on, and observe the feedback from the onboard LEDs.
 
 ### If the test passes:
 Only the 2 "eyes" LEDs will pulsate smoothly (like it is "breathing").
