@@ -5,16 +5,24 @@ var path = require('path');
 var utils = require('./utils');
 var endOfLine = require('os').EOL;
 
-var arduino = process.argv[2] || '/Applications/Arduino.app/Contents/MacOS/Arduino';
+var arduino = process.argv[2];
 var comPort = process.argv[3];
 
 if(!arduino){
 	console.log('ERROR: You need to inform the path to the arduino binary!');
+	console.log('\nEXAMPLE WINDOWS:')
+	console.log('node script.js "\\Program Files\\Arduino\\arduino_debug.exe" "COM3"')
+	console.log('\nEXAMPLE MAC:')
+	console.log('node script.js "/Applications/Arduino.app/Contents/MacOS/Arduino" "/dev/cu.usbmodem1411"')
 	return;
 }
 
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
+	console.log('\nEXAMPLE WINDOWS:')
+	console.log('node script.js "\\Program Files\\Arduino\\arduino_debug.exe" "COM3"')
+	console.log('\nEXAMPLE MAC:')
+	console.log('node script.js "/Applications/Arduino.app/Contents/MacOS/Arduino" "/dev/cu.usbmodem1411"')
 	return;
 }
 

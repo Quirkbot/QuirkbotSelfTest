@@ -58,14 +58,14 @@ Then run the script, passing the Arduino path(1) as the first argument, and the 
 $ node script.js "\Program Files\Arduino\arduino_debug.exe" "COM3"
 ```
 
-If the script is executed correctly, you should see an out put like this.
+If the script is executed correctly, you should see an output like this.
 ```
 Using Arduino: \Program Files\Arduino\arduino_debug.exe
 Using COM port: COM3
 Using UUID: 8d19c840e2284315
 Compiling and uploading, please wait...
 ```
-The upload process may take a few seconds, so please be patient. The Quirkbot LEDs should indicate when it goes into bootloader mode (mouth LEDs pulsating).
+The upload process may take a few seconds, so please be patient. The "mouth" LEDs should indicate when it goes into bootloader mode and the upload is taking place (the 2 LEDs will pulsate).
 
 ---
 #### 05 - Verify for SUCCESS or FAILED
@@ -90,14 +90,16 @@ FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
 
 
 ---
-#### 06 - Execute self test
+# Testing on the test jig
 
 If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig.
 
-#### If the test fails:
-All the 4 "eyes and mouth" LEDs will blink, for 4 seconds, with a 200 milliseconds interval between the blinks.
+Place the Quirkbot in the jig, turn it on, and observe the feedback from the onboard LEDs to
 
-#### If the test succeds:
+### If the test passes:
 Only the 2 "eyes" LEDs will pulsate smoothly (like it is "breathing").
+
+### If the test fails:
+All the 4 "eyes and mouth" LEDs will blink (not smoothly, just turning ON/OFF), for 4 seconds, with a 200 milliseconds interval between the blinks. After 4 seconds, only the "eyes" will pulsate, exactly like when the test passes, so **make sure to be looking to the Quirkbot during the first seconds**.
 
 **Attention:** *Before displaying the results of the test The Quirkbot LEDs will display the "start animation". All LEDs will blink quickly, one by one, spinning in a clockwise fashion, finishing by the 2 eyes blinking quickly simultaneously. This is should not be confused with a failed test!*
