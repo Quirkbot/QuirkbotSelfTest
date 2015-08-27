@@ -46,7 +46,7 @@ utils.pass()
 	return utils.pass()
 	.then(utils.writeFile(path.resolve('firmware', 'firmware.ino'), code))
 })
-.then(utils.execute(
+/*.then(utils.execute(
 	'"' + arduino + '" '
 	+ '--verbose-upload '
 	+ '--port '+ comPort +' '
@@ -64,8 +64,8 @@ utils.pass()
 			resolve();
 		}
 	})
-})
-.then(utils.appendFile('UUIDs.txt', UUID+endOfLine))
+})*/
+.then(utils.appendFile('UUIDs.txt', new Date() + ',' +UUID+endOfLine))
 .then(function(){
 	console.log('SUCCESS!');
 })
