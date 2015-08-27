@@ -3,7 +3,7 @@ Quirkbot firmware upload in production
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
 
-If the the upload is sucessful, the id will also be apended to a ```UUIDs.txt```, stored in the root of this repository. After the production cycle, please send us back the ```UUIDs.txt``` so we can have control of every Quirkbot produced.
+If the the upload is successful, the id will also be appended to a ```UUIDs.txt```, stored in the root of this repository. After the production cycle, please send us back the ```UUIDs.txt``` so we can have control of every Quirkbot produced.
 
 Requirements
 ============
