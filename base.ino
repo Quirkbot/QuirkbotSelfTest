@@ -186,8 +186,6 @@ Wave wave1;
 Wave wave2;
 Led led1;
 Led led2;
-Led led3;
-Led led4;
 
 void start(){
 
@@ -212,11 +210,5 @@ void start(){
 
   led2.light.connect(wave1.out);
   led2.place = RE;
-
-  led3.light.connect(wave2.out);
-  led3.place = LM;
-
-  led4.light.connect(wave2.out);
-  led4.place = RM;
 
 }
