@@ -152,17 +152,16 @@ bool testSinglePadInput(int pad, int route, int source){
 }
 // Result feedback -------------------------------------------------------------
 void success(){
-  allLedsOn();
-  delay(2000);
+    while(true){
+        allLedsOn();
+    }
 }
 void fail(){
-  int i = 0;
-  while(i < 10){
+  while(true){
     allLedsOn();
     delay(200);
     allLedsOff();
     delay(200);
-    i++;
   }
 }
 void allLedsOn(){
@@ -188,6 +187,8 @@ Wave wave3;
 Wave wave4;
 Led led1;
 Led led2;
+Led led3;
+Led led4;
 ServoMotor servoMotor1;
 ServoMotor servoMotor2;
 
@@ -200,8 +201,11 @@ void start(){
   pinMode(BP5, OUTPUT);
   pinMode(BP6, OUTPUT);
 
-  // Test and display result
-  if(!test()) fail();
+  // Test and if ok, turn all LEDs on and exit
+  if(test()){
+    success();
+    return;
+  }
 
   // If we got here it means the test was ok
 
@@ -224,6 +228,12 @@ void start(){
 
   led2.light.connect(wave4.out);
   led2.place = RE;
+
+  led3.light.connect(wave3.out);
+  led3.place = LM;
+
+  led4.light.connect(wave4.out);
+  led4.place = RM;
 
   servoMotor1.position.connect(wave1.out);
   servoMotor1.place = SERVO_BP1;

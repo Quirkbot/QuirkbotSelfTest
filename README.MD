@@ -10,7 +10,7 @@ Requirements
 
 Before doing anything else, make sure you comply to this list of requirements:
 
-- Download version ```0.0.4```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
+- Download version ```0.0.5```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
 	- *You can verify version in the ```version.txt``` file*
 
 
@@ -112,16 +112,10 @@ If the upload was SUCCESSful, the Quirkbot is ready to be tested in the test jig
 Place the Quirkbot in the jig, turn it on, and observe the feedback from the onboard LEDs.
 
 ### If the test passes:
-Only the 2 "eyes" LEDs will pulsate smoothly (like it is "breathing").
-
-![Success](/reference/success.gif?raw=true "Success")
+4 LEDS ON.
 
 ### If the test fails:
-All the 4 "eyes and mouth" LEDs will blink (not smoothly, just turning ON/OFF), for 4 seconds, with a 200 milliseconds interval between the blinks. After 4 seconds, only the "eyes" will pulsate, exactly like when the test passes, so **make sure to be looking to the Quirkbot during the first seconds**.
-
-![Fail](/reference/fail.gif?raw=true "Fail")
-
-**Attention:** *Before displaying the results of the test The Quirkbot LEDs will display the "start sequence". All LEDs will blink quickly, one by one, spinning in a clockwise fashion, finishing by the 2 eyes blinking quickly simultaneously. This is should not be confused with a failed test!*
+LEDs blinking.
 
 # UUIDs.txt (very important)
 
