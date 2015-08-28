@@ -10,7 +10,7 @@ Requirements
 
 Before doing anything else, make sure you comply to this list of requirements:
 
-- Download version ```0.0.6```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
+- Download version ```0.0.7```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
 	- *You can verify version in the ```version.txt``` file*
 
 

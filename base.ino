@@ -231,18 +231,20 @@ void start(){
   /** GENERATED UUID **/
   // If we got here it means the test was ok
 
+  wave1.length = 0.8;
   wave1.type = WAVE_SINE;
   wave1.min = 0.25;
   wave1.max = 0.75;
 
-  wave2.length = 0.5;
+  wave2.length = 0.4;
   wave2.type = WAVE_SINE;
   wave2.min = 0.25;
   wave2.max = 0.75;
 
+  wave3.length = 0.8;
   wave3.type = WAVE_SINE;
 
-  wave4.length = 0.5;
+  wave4.length = 0.4;
   wave4.type = WAVE_SINE;
 
   led1.light.connect(wave3.out);
