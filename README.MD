@@ -10,7 +10,7 @@ Requirements
 
 Before doing anything else, make sure you comply to this list of requirements:
 
-- Download version ```0.0.7```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
+- Download version ```0.0.8```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
 	- *You can verify version in the ```version.txt``` file*
 
 
@@ -28,7 +28,7 @@ Before doing anything else, make sure you comply to this list of requirements:
 	- *You can verify version in the ```library.properties``` file.*
 
 
-- Install **manually** version ```0.0.13``` of the [QuirkbotArduinoHardware](https://github.com/Quirkbot/QuirkbotArduinoHardware/releases).
+- Install **manually** version ```0.0.14``` of the [QuirkbotArduinoHardware](https://github.com/Quirkbot/QuirkbotArduinoHardware/releases).
 	- *You can verify version in the ```avr/version.txt``` file*
 
 
