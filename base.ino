@@ -184,8 +184,12 @@ void allLedsOff(){
 
 Wave wave1;
 Wave wave2;
+Wave wave3;
+Wave wave4;
 Led led1;
 Led led2;
+ServoMotor servoMotor1;
+ServoMotor servoMotor2;
 
 void start(){
 
@@ -200,15 +204,31 @@ void start(){
   if(!test()) fail();
 
   // If we got here it means the test was ok
+
   wave1.type = WAVE_SINE;
+  wave1.min = 0.25;
+  wave1.max = 0.75;
 
+  wave2.length = 0.5;
   wave2.type = WAVE_SINE;
-  wave2.offset = 0.5;
+  wave2.min = 0.25;
+  wave2.max = 0.75;
 
-  led1.light.connect(wave1.out);
+  wave3.type = WAVE_SINE;
+
+  wave4.length = 0.5;
+  wave4.type = WAVE_SINE;
+
+  led1.light.connect(wave3.out);
   led1.place = LE;
 
-  led2.light.connect(wave1.out);
+  led2.light.connect(wave4.out);
   led2.place = RE;
+
+  servoMotor1.position.connect(wave1.out);
+  servoMotor1.place = SERVO_BP1;
+
+  servoMotor2.position.connect(wave2.out);
+  servoMotor2.place = SERVO_BP2;
 
 }

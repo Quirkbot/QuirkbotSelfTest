@@ -70,5 +70,16 @@ utils.pass()
 	console.log('SUCCESS!');
 })
 .catch(function(error){
-	console.log('FAILED! '+ error);
+	console.log('FAILED!');
+	if(typeof error === 'object'){
+		for (var variable in error) {
+			if (error.hasOwnProperty(variable)) {
+				console.log(variable);
+				console.log('	' + error[variable]);
+			}
+		}
+	}
+	else{
+		console.log(error);
+	}
 })
