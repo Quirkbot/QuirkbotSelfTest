@@ -1,5 +1,23 @@
-#include "Quirkbot.h"
-
+// Defines ---------------------------------------------------------------------
+#define LE	8	// Left Eye		 	(PB4)	ADC11
+#define RE	A5	// Right Eye		(PF0)	ADC0
+#define LLF	9	// Left Leg Front	(PB5)	ADC12	PWM (16BIT)
+#define RLF	11	// Right Leg Front	(PB7)			PWM (8/16BIT)
+#define RAF	5	// Right Arm Front	(PC6)			PWM (HS)
+#define HF	13	// Horn Front		(PC7)			PWM (10BIT)
+#define LAF	10	// Left Arm Front	(PB6)	ADC13	PWM (16BIT)
+#define LLB	A0	// Left Leg Back	(PF7)	ADC7
+#define RLB	A4	// Right Leg Back	(PF1)	ADC1
+#define RAB	A3	// Right Arm Back	(PF4)	ADC4
+#define HB	A2	// Horn Back		(PF5)	ADC5
+#define LAB	A1	// Left Arm Back	(PF6)	ADC6
+#define BP1	A7	// Back Pack 1		(PD7)	ADC10	PWM (HS)	// or digital 6
+#define BP2	A11	// Back Pack 2		(PD6)	ADC9                    // or digital 12
+#define BP3	0	// Back Pack 3		(PD2)	RXD1
+#define BP4	2	// Back Pack 4		(PD1)	SDA
+#define BP5	3	// Back Pack 5		(PD0)	SCL
+#define BP6	1 	// Back Pack 6		(PD3)	TXD1
+#define PULL_UP_PIN 4
 
 // Multiplex -------------------------------------------------------------------
 #define MUX_0 0,0,0 // 0 + 0 + 0 = 0
@@ -12,28 +30,32 @@
 #define MUX_7 1,1,1 // 1 + 1 + 1 = 7
 
 void _mux(int s0, int s1, int s2){
-  digitalWrite(BP4, (s0 == 1) ? HIGH : LOW);
-  digitalWrite(BP5, (s1 == 1) ? HIGH : LOW);
-  digitalWrite(BP6, (s2 == 1) ? HIGH : LOW);
+	digitalWrite(BP3, (s0 == 1) ? HIGH : LOW);
+	digitalWrite(BP4, (s1 == 1) ? HIGH : LOW);
+	digitalWrite(BP5, (s2 == 1) ? HIGH : LOW);
 }
 void mux(int pin){
-  switch (pin) {
-      case 0: _mux(MUX_0); break;
-      case 1: _mux(MUX_1); break;
-      case 2: _mux(MUX_2); break;
-      case 3: _mux(MUX_3); break;
-      case 4: _mux(MUX_4); break;
-      case 5: _mux(MUX_5); break;
-      case 6: _mux(MUX_6); break;
-      case 7: _mux(MUX_7); break;
-  }
+	switch (pin) {
+	    case 0:	_mux(MUX_0); break;
+	    case 1:	_mux(MUX_1); break;
+	    case 2:	_mux(MUX_2); break;
+	    case 3:	_mux(MUX_3); break;
+	    case 4:	_mux(MUX_4); break;
+	    case 5:	_mux(MUX_5); break;
+	    case 6:	_mux(MUX_6); break;
+	    case 7:	_mux(MUX_7); break;
+	}
 }
 // Entry -----------------------------------------------------------------------
 bool test(){
 	if(!testFrontPadsOutput())return false;
+//        Serial.println("A");
 	if(!testBackPadsOutput()) return false;
+//        Serial.println("B");
 	if(!testFrontPadsMakey()) return false;
+//        Serial.println("C");
 	if(!testBackPadsInput()) return false;
+//        Serial.println("D");
 
 	return true;
 }
@@ -152,34 +174,36 @@ bool testSinglePadInput(int pad, int route, int source){
 }
 // Result feedback -------------------------------------------------------------
 void success(){
-    while(true){
+	while(true){
         allLedsOn();
     }
 }
 void fail(){
-  while(true){
-    allLedsOn();
-    delay(200);
-    allLedsOff();
-    delay(200);
-  }
+	while(true){
+		allLedsOn();
+		delay(200);
+		allLedsOff();
+		delay(200);
+	}
 }
 void allLedsOn(){
-  pinMode(LE, OUTPUT);
-  pinMode(RE, OUTPUT);
-  digitalWrite(LE, HIGH);
-  digitalWrite(RE, HIGH);
-  PORTD |= (1<<5);
-  PORTB |= (1<<0);
+	pinMode(LE, OUTPUT);
+	pinMode(RE, OUTPUT);
+	digitalWrite(LE, HIGH);
+	digitalWrite(RE, HIGH);
+	PORTD |= (1<<5);
+	PORTB |= (1<<0);
 }
 void allLedsOff(){
-  pinMode(LE, OUTPUT);
-  pinMode(RE, OUTPUT);
-  digitalWrite(LE, LOW);
-  digitalWrite(RE, LOW);
-  PORTD &= ~(1<<5);
-  PORTB &= ~(1<<0);
+	pinMode(LE, OUTPUT);
+	pinMode(RE, OUTPUT);
+	digitalWrite(LE, LOW);
+	digitalWrite(RE, LOW);
+	PORTD &= ~(1<<5);
+	PORTB &= ~(1<<0);
 }
+
+#include "Quirkbot.h"
 
 Wave wave1;
 Wave wave2;
@@ -193,10 +217,7 @@ ServoMotor servoMotor1;
 ServoMotor servoMotor2;
 
 void start(){
-
-    /** GENERATED UUID **/
-
-   // Setup multiplex control pins
+  // Setup multiplex control pins
   pinMode(BP4, OUTPUT);
   pinMode(BP5, OUTPUT);
   pinMode(BP6, OUTPUT);
@@ -207,6 +228,7 @@ void start(){
     return;
   }
 
+  /** GENERATED UUID **/
   // If we got here it means the test was ok
 
   wave1.type = WAVE_SINE;
