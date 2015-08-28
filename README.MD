@@ -10,7 +10,7 @@ Requirements
 
 Before doing anything else, make sure you comply to this list of requirements:
 
-- Download version ```0.0.3```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
+- Download version ```0.0.4```of [this repository](https://github.com/Quirkbot/QuirkbotSelfTest).
 	- *You can verify version in the ```version.txt``` file*
 
 
@@ -29,7 +29,7 @@ Before doing anything else, make sure you comply to this list of requirements:
 
 
 - Install **manually** version ```0.0.13``` of the [QuirkbotArduinoHardware](https://github.com/Quirkbot/QuirkbotArduinoHardware/releases).
-	- *You can verify version in the ```version.txt``` file*
+	- *You can verify version in the ```avr/version.txt``` file*
 
 
 **Attention**: *It is very important that you do the manual installation of QuirkbotArduinoHardware. If your directory structure is not like the example below, it will fail!*
@@ -122,3 +122,9 @@ All the 4 "eyes and mouth" LEDs will blink (not smoothly, just turning ON/OFF), 
 ![Fail](/reference/fail.gif?raw=true "Fail")
 
 **Attention:** *Before displaying the results of the test The Quirkbot LEDs will display the "start sequence". All LEDs will blink quickly, one by one, spinning in a clockwise fashion, finishing by the 2 eyes blinking quickly simultaneously. This is should not be confused with a failed test!*
+
+# UUIDs.txt (very important)
+
+Before starting a production cycle, please make sure to **delete** the ``UUIDs.txt`` file in the root of this repository, if it exists.
+
+After the production cycle, please **send us** the  ``UUIDs.txt`` that was generated. This file contains all the generated ids, and will be used by us to verify original Quirkbots.
