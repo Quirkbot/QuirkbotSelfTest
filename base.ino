@@ -204,6 +204,7 @@ void allLedsOff(){
 }
 
 #include "Quirkbot.h"
+#include <avr/wdt.h>
 
 Wave wave1;
 Wave wave2;
@@ -217,15 +218,19 @@ ServoMotor servoMotor1;
 ServoMotor servoMotor2;
 
 void start(){
+  // Disable the watchdog, the next operations will take time...
+  wdt_disable();
+  wdt_reset();
+
   // Setup multiplex control pins
   pinMode(BP4, OUTPUT);
   pinMode(BP5, OUTPUT);
   pinMode(BP6, OUTPUT);
 
-  // Test and if ok, turn all LEDs on and exit
+  // Test and if ok, turn all LEDs on and stop in a infinite loop
   if(test()){
     success();
-    return;
+    while(1){};
   }
 
   /** GENERATED UUID **/
