@@ -1,3 +1,6 @@
 .DS_Store
 firmware/firmware.ino
 UUIDs.txt
+node_modules
+npm-debug.log
+.tmp-build
