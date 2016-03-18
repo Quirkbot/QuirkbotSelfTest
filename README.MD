@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production
+Quirkbot firmware upload in production (v1.0.1)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -9,15 +9,18 @@ Upload Instructions
 ============
 #### 01 - Install the latest version of NodeJS
 [Download NodeJS here](https://nodejs.org/download).
+---
+#### 02 - Install the Quirkbot Drivers (only required by Windows 7 and 8)
+[Download Quirkbot Windows Drivers here](https://github.com/Quirkbot/QuirkbotWindowsDriverInstaller/raw/master/Quirkbot-Windows-Drivers-Installer.exe).
 
 ---
-#### 02 - Clone or download this repository
+#### 03 - Clone or download this repository
 It's important to keep these files updated, so always before a production cycle, make sure re-download, or re-clone this this repository
 ```
 $ git clone https://github.com/Quirkbot/QuirkbotSelfTest.git
 ```
 ---
-#### 03 - Install dependencies
+#### 04 - Install dependencies
 
 Enter the directory and issue a "NPM install".
 ```
@@ -25,12 +28,12 @@ $ cd QuirkbotSelfTest
 $ npm install
 ```
 ---
-#### 04 - Make note of the Quirkbots COM port
+#### 05 - Make note of the Quirkbots COM port
 
 Make sure there is a Quirkbot turned ON and connected to the computer. Use the "Device Manager" to discover what is the port it is connected to. On Windows, it should be something like ```COM3```,```COM4```,```COM5```, etc.
 
 ---
-#### 04 - Run the script
+#### 06 - Run the script
 Make sure you are on the root of the directory
 
 ```
@@ -50,7 +53,7 @@ Compiling and uploading, please wait...
 The upload process may take a few seconds, so please be patient.
 
 ---
-#### 05 - Verify for SUCCESS or FAILED
+#### 07 - Verify for SUCCESS or FAILED
 If the upload is successful, you should see the word SUCCESS in the end of the output:
 ```
 Using COM port: COM3
