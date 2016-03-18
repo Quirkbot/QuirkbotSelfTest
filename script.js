@@ -6,6 +6,8 @@ var utils = require('./utils');
 var endOfLine = require('os').EOL;
 
 var comPort = process.argv[2];
+var uploadComPort = comPort;
+var portsBeforeReset = [];
 
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
@@ -67,32 +69,90 @@ utils.pass()
 // Try to enable bootloader Mode
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var SerialPort = require("serialport").SerialPort;
-		var serialPort = new SerialPort(comPort, {
-			baudrate: 57600
-		});
-		serialPort.on("open", function () {
-			serialPort.write([0xb], function(err, results) {
-				if(err){
-					return reject(err);
-				}
+		var sp = require("serialport");
 
-				serialPort.close(function () {
+		sp.list(function (err, ports) {
+			if(err){
+				return reject(err);
+			}
+			portsBeforeReset = ports;
+
+			var serialPort = new sp.SerialPort(comPort, {
+				baudrate: 57600
+			});
+			serialPort.on("open", function () {
+				serialPort.write([0xb], function(err, results) {
 					if(err){
 						return reject(err);
 					}
-					setTimeout(resolve, 2000);
-				});
 
+					serialPort.close(function () {
+						if(err){
+							return reject(err);
+						}
+						setTimeout(resolve,200 );
+					});
+
+				});
+			});
+			serialPort.on("error", function () {
+				reject(arguments);
 			});
 		});
-		serialPort.on("error", function () {
-			reject(arguments);
-		});
-
-
 	});
 
+})
+.then(function () {
+	return new Promise(function(resolve, reject) {
+		var sp = require("serialport");
+		var count = 0;
+		var countAndScheduleCheck = function() {
+			count++;
+			if(count >= 100){
+				console.log('No device refresh')
+				uploadComPort = comPort;
+				resolve()
+			}
+			else{
+				setTimeout(check, 30);
+			}
+		}
+
+		var check = function () {
+			sp.list(function (err, ports) {
+				if(err){
+					return countAndScheduleCheck();
+				}
+				if(ports.length <= portsBeforeReset.length){
+					var disappeared = objectArrayDiffByKey(portsBeforeReset,ports, 'comName');
+
+					if(disappeared.length){
+						disappeared = disappeared[0];
+						//console.log('A device disappeared:', disappeared);
+						for (var i = portsBeforeReset.length-1; i >= 0; i--) {
+							if(portsBeforeReset[i].comName == disappeared.comName){
+								portsBeforeReset.splice(i, 1);
+							}
+						}
+					}
+
+				}
+				if(ports.length >= portsBeforeReset.length){
+					var appeared = objectArrayDiffByKey(ports, portsBeforeReset, 'comName');
+					if(appeared.length){
+						appeared = appeared[0];
+						//console.log('A device appeared:', appeared);
+
+						uploadComPort = appeared.comName;
+						resolve();
+						return;
+					}
+				}
+				countAndScheduleCheck();
+			});
+		}
+		check();
+	});
 })
 // Upload
 .then(function () {
@@ -104,7 +164,7 @@ utils.pass()
 		'-cavr109 ' +
 		'-b57600 ' +
 		'-D ' +
-		'-P' + comPort + ' ' +
+		'-P' + uploadComPort + ' ' +
 		'-Uflash:w:' + path.resolve('.tmp-build', 'firmware.ino.hex')  + ':i ';
 
 		utils.pass()
@@ -139,7 +199,7 @@ utils.pass()
 	console.log('SUCCESS!');
 })
 .catch(function(error){
-	console.log('FAILED!');
+	console.log('FAILED!', arguments);
 	if(typeof error === 'object'){
 		for (var variable in error) {
 			if (error.hasOwnProperty(variable)) {
@@ -153,3 +213,31 @@ utils.pass()
 	}
 	process.exit();
 })
+
+
+var compareArrays = function(a,b){
+	if(a.length != b.length) return false;
+
+	for (var i = 0; i < a.length; i++) {
+		if(a[i] != b[i])
+			return false;
+	};
+
+	return true;
+}
+
+var objectArrayDiffByKey = function(A, B, key) {
+	var map = {}, C = [];
+
+	for(var i = B.length; i--; )
+		map[B[i][key]] = true;
+
+	for(var i = A.length; i--; ) {
+		if(!map[A[i][key]]){
+			C.push(A[i]);
+		}
+
+	}
+
+	return C;
+}
