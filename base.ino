@@ -1,3 +1,6 @@
+#include "Quirkbot.h"
+#include <avr/wdt.h>
+
 // Defines ---------------------------------------------------------------------
 #define LE	8	// Left Eye		 	(PB4)	ADC11
 #define RE	A5	// Right Eye		(PF0)	ADC0
@@ -48,13 +51,18 @@ void mux(int pin){
 }
 // Entry -----------------------------------------------------------------------
 bool test(){
+	wdt_reset();
 	if(!testFrontPadsOutput())return false;
+	wdt_reset();
 //        Serial.println("A");
 	if(!testBackPadsOutput()) return false;
+	wdt_reset();
 //        Serial.println("B");
 	if(!testFrontPadsMakey()) return false;
+	wdt_reset();
 //        Serial.println("C");
 	if(!testBackPadsInput()) return false;
+	wdt_reset();
 //        Serial.println("D");
 
 	return true;
@@ -175,11 +183,13 @@ bool testSinglePadInput(int pad, int route, int source){
 // Result feedback -------------------------------------------------------------
 void success(){
 	while(true){
+		wdt_reset();
         allLedsOn();
     }
 }
 void fail(){
 	while(true){
+		wdt_reset();
 		allLedsOn();
 		delay(200);
 		allLedsOff();
@@ -203,9 +213,6 @@ void allLedsOff(){
 	PORTB &= ~(1<<0);
 }
 
-#include "Quirkbot.h"
-#include <avr/wdt.h>
-
 Wave wave1;
 Wave wave2;
 Wave wave3;
@@ -217,11 +224,7 @@ Led led4;
 ServoMotor servoMotor1;
 ServoMotor servoMotor2;
 
-void start(){
-  // Disable the watchdog, the next operations will take time...
-  wdt_disable();
-  wdt_reset();
-
+void setup(){
   // Setup multiplex control pins
   pinMode(BP4, OUTPUT);
   pinMode(BP5, OUTPUT);
@@ -230,7 +233,6 @@ void start(){
   // Test and if ok, turn all LEDs on and stop in a infinite loop
   if(test()){
     success();
-    while(1){};
   }
 
   /** GENERATED UUID **/
@@ -269,5 +271,9 @@ void start(){
 
   servoMotor2.position.connect(wave2.out);
   servoMotor2.place = SERVO_BP2;
+
+}
+
+void loop(){
 
 }
