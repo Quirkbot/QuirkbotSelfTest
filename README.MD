@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.1.0)
+Quirkbot firmware upload in production (v1.1.1)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -9,7 +9,7 @@ Upload Instructions
 ============
 
 #### 01 - Install the latest version of NodeJS
-[Download NodeJS here](https://nodejs.org/download).
+[Download NodeJS here](https://nodejs.org).
 
 ---
 #### 02 - Install the Quirkbot Drivers (only required by Windows 7 and 8)
