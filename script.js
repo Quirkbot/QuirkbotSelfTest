@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var uuid = require('node-uuid');
 var fs = require('fs');
 var execSync = require('child_process').execSync;
@@ -12,9 +14,9 @@ var portsBeforeReset = [];
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
 	console.log('\nEXAMPLE WINDOWS:')
-	console.log('npm start "COM3"')
+	console.log('node node_modules\\quirkbot-self-test\\script.js "COM3"')
 	console.log('\nEXAMPLE MAC:')
-	console.log('npm start "/dev/cu.usbmodem1411"')
+	console.log('node node_modules/quirkbot-self-test/script.js "/dev/cu.usbmodem1411"')
 	return;
 }
 
@@ -25,7 +27,7 @@ console.log('Using UUID: '+UUID);
 
 
 utils.pass()
-.then(utils.readFile(path.resolve('./', 'base.ino')))
+.then(utils.readFile(path.resolve('node_modules', 'quirkbot-self-test', 'base.ino')))
 .then(function (data) {
 	var codeString = '';
 	codeString += 'Bot::forceSaveUuid=true;'+endOfLine;
@@ -35,17 +37,17 @@ utils.pass()
 	var code = data.replace('/** GENERATED UUID **/', codeString);
 	console.log('Compiling and uploading, please wait...')
 	return utils.pass()
-	.then(utils.writeFile(path.resolve('firmware', 'firmware.ino'), code))
+	.then(utils.writeFile(path.resolve('node_modules', 'quirkbot-self-test', 'firmware', 'firmware.ino'), code))
 })
 // Create (if needed) temp folder
 .then(function () {
 	return new Promise(function(resolve, reject) {
 		utils.pass()
-		.then(utils.readDir('.tmp-build'))
+		.then(utils.readDir(path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build')))
 		.then(resolve)
 		.catch(function() {
 			utils.pass()
-			.then(utils.mkdir('.tmp-build'))
+			.then(utils.mkdir(path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build')))
 			.then(resolve)
 			.catch(reject)
 		})
@@ -62,9 +64,9 @@ utils.pass()
 	'-tools="' + path.resolve('node_modules', 'npm-arduino-builder', 'arduino-builder', 'tools') + '" ' +
 	'-fqbn="quirkbot-arduino-hardware:avr:quirkbot" ' +
 	'-ide-version=10607 ' +
-	'-build-path="' + path.resolve('.tmp-build') + '" ' +
+	'-build-path="' + path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build') + '" ' +
 	'-verbose ' +
-	path.resolve('firmware', 'firmware.ino')
+	path.resolve('node_modules', 'quirkbot-self-test', 'firmware', 'firmware.ino')
 ))
 // Try to enable bootloader Mode
 .then(function () {
@@ -165,7 +167,7 @@ utils.pass()
 		'-b57600 ' +
 		'-D ' +
 		'-P' + uploadComPort + ' ' +
-		'-Uflash:w:' + path.resolve('.tmp-build', 'firmware.ino.hex')  + ':i ';
+		'-Uflash:w:' + path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build', 'firmware.ino.hex')  + ':i ';
 
 		utils.pass()
 		.then(utils.execute(command))
@@ -194,7 +196,7 @@ utils.pass()
 		}
 	})
 })
-.then(utils.appendFile('UUIDs.txt', new Date() + ',' +UUID.substring(0, 16)+endOfLine))
+.then(utils.appendFile(path.resolve( 'UUIDs.txt'), new Date() + ',' +UUID.substring(0, 16)+endOfLine))
 .then(function(){
 	console.log('SUCCESS!');
 })

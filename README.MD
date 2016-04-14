@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.0.2)
+Quirkbot firmware upload in production (v1.1.0)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -7,41 +7,31 @@ If the the upload is successful, the id will also be appended to a ```UUIDs.txt`
 
 Upload Instructions
 ============
+
 #### 01 - Install the latest version of NodeJS
 [Download NodeJS here](https://nodejs.org/download).
+
 ---
 #### 02 - Install the Quirkbot Drivers (only required by Windows 7 and 8)
 [Download Quirkbot Windows Drivers here](https://github.com/Quirkbot/QuirkbotWindowsDriverInstaller/raw/master/Quirkbot-Windows-Drivers-Installer.exe).
 
 ---
-#### 03 - Clone or download this repository
-It's important to keep these files updated, so always before a production cycle, make sure re-download, or re-clone this this repository
-```
-$ git clone https://github.com/Quirkbot/QuirkbotSelfTest.git
-```
----
-#### 04 - Install dependencies
+#### 03 - Install the Upload script
 
-Enter the directory and issue a "NPM install".
 ```
-$ cd QuirkbotSelfTest
-$ npm install
+$ npm install quirkbot-self-test
 ```
 ---
-#### 05 - Make note of the Quirkbots COM port
+#### 04 - Make note of the Quirkbots COM port
 
 Make sure there is a Quirkbot turned ON and connected to the computer. Use the "Device Manager" to discover what is the port it is connected to. On Windows, it should be something like ```COM3```,```COM4```,```COM5```, etc.
 
 ---
-#### 06 - Run the script
-Make sure you are on the root of the directory
-
-```
-$ cd QuirkbotSelfTest
-```
+#### 05 - Run the script
+Make sure you are on the root of the directory.
 Run the script, passing the COM port as an argument, eg:
 ```
-$ npm start "COM3"
+$ node node_modules\quirkbot-self-test\script.js "COM3"
 ```
 
 If the script is executed correctly, you should see an output like this.
@@ -53,12 +43,13 @@ Compiling and uploading, please wait...
 The upload process may take a few seconds, so please be patient.
 
 ---
-#### 07 - Verify for SUCCESS or FAILED
+#### 06 - Verify for SUCCESS or FAILED
 If the upload is successful, you should see the word SUCCESS in the end of the output:
 ```
 Using COM port: COM3
 Using UUID: 8d19c840e2284315
 Compiling and uploading, please wait...
+No device refresh
 SUCCESS!
 ```
 
@@ -67,6 +58,7 @@ If there were any errors during the process, you will see the word FAILED! in th
 Using COM port: COM3
 Using UUID: 8d19c840e2284315
 Compiling and uploading, please wait...
+
 FAILED! /bin/sh: \Program Files\Arduino\arduino_debug.exe: command not found
 ```
 
