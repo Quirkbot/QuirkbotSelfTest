@@ -8,7 +8,7 @@ If the the upload is successful, the id will also be appended to a ```UUIDs.txt`
 Upload Instructions
 ============
 
-#### 01 - Install the latest version of NodeJS
+#### 01 - Install NodeJS 4.4.3
 [Download NodeJS here](https://nodejs.org).
 
 ---
