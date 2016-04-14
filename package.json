@@ -1,4 +1,8 @@
 {
+  "name": "quirkbot-self-test",
+  "version": "1.0.4",
+  "description": "Quirkbot Self Test Program",
+  "author": "Paulo Barcelos <paulo@quirkbot.com>",
   "dependencies": {
     "node-uuid": "1.4.3",
     "npm-arduino-avr-gcc": "4.8.1-arduino5",
