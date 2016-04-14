@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.1.1)
+Quirkbot firmware upload in production (v1.1.2)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
