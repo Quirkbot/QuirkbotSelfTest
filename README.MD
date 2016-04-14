@@ -9,7 +9,7 @@ Upload Instructions
 ============
 
 #### 01 - Install the latest version of NodeJS
-[Download NodeJS here](https://nodejs.org/download).
+[Download NodeJS here](https://nodejs.org).
 
 ---
 #### 02 - Install the Quirkbot Drivers (only required by Windows 7 and 8)

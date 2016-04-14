@@ -1,6 +1,6 @@
 {
   "name": "quirkbot-self-test",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Quirkbot Self Test Program",
   "author": "Paulo Barcelos <paulo@quirkbot.com>",
   "dependencies": {
