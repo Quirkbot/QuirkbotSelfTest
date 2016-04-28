@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.1.5)
+Quirkbot firmware upload in production (v1.2.0)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -8,8 +8,10 @@ If the the upload is successful, the id will also be appended to a ```UUIDs.txt`
 Upload Instructions
 ============
 
-#### 01 - Install NodeJS 4.4.3
-[Download NodeJS here](https://nodejs.org).
+#### 01 - Install NodeJS 5.11.0
+- [Download NodeJS 5.11.0 (Windows 32)](https://nodejs.org/dist/v5.11.0/node-v5.11.0-x86.msi).
+- [Download NodeJS 5.11.0 (Windows 64)](https://nodejs.org/dist/v5.11.0/node-v5.11.0-x64.msi).
+- [Download NodeJS 5.11.0 (OSX)](https://nodejs.org/dist/v5.11.0/node-v5.11.0.pkg).
 
 ---
 #### 02 - Install the Quirkbot Drivers (only required by Windows 7 and 8)
@@ -17,6 +19,7 @@ Upload Instructions
 
 ---
 #### 03 - Install the Upload script
+This may take a few minutes.
 
 ```
 $ npm install quirkbot-self-test
@@ -28,7 +31,8 @@ Make sure there is a Quirkbot turned ON and connected to the computer. Use the "
 
 ---
 #### 05 - Run the script
-Make sure you are on the root of the directory.
+Make sure you are on the same directory where the upload script was installed (see 03 - Install the Upload script).
+
 Run the script, passing the COM port as an argument
 
 Example on Windows:

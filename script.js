@@ -73,7 +73,7 @@ utils.pass()
 // Try to enable bootloader Mode
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var sp = require("serialport");
+		var sp = require("serialport-dirty-win7-fix");
 
 		sp.list(function (err, ports) {
 			if(err){
@@ -108,7 +108,7 @@ utils.pass()
 })
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var sp = require("serialport");
+		var sp = require("serialport-dirty-win7-fix");
 		var count = 0;
 		var countAndScheduleCheck = function() {
 			count++;
