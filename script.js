@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+
 var uuid = require('node-uuid');
 var fs = require('fs');
 var execSync = require('child_process').execSync;
@@ -10,6 +11,7 @@ var endOfLine = require('os').EOL;
 var comPort = process.argv[2];
 var uploadComPort = comPort;
 var portsBeforeReset = [];
+
 
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
@@ -27,7 +29,7 @@ console.log('Using UUID: '+UUID);
 
 
 utils.pass()
-.then(utils.readFile(path.resolve('node_modules', 'quirkbot-self-test', 'base.ino')))
+.then(utils.readFile(path.resolve(__dirname, 'base.ino')))
 .then(function (data) {
 	var codeString = '';
 	codeString += 'Bot::forceSaveUuid=true;'+endOfLine;
@@ -37,17 +39,17 @@ utils.pass()
 	var code = data.replace('/** GENERATED UUID **/', codeString);
 	console.log('Compiling and uploading, please wait...')
 	return utils.pass()
-	.then(utils.writeFile(path.resolve('node_modules', 'quirkbot-self-test', 'firmware', 'firmware.ino'), code))
+	.then(utils.writeFile(path.resolve(__dirname, 'firmware', 'firmware.ino'), code))
 })
 // Create (if needed) temp folder
 .then(function () {
 	return new Promise(function(resolve, reject) {
 		utils.pass()
-		.then(utils.readDir(path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build')))
+		.then(utils.readDir(path.resolve(__dirname, '.tmp-build')))
 		.then(resolve)
 		.catch(function() {
 			utils.pass()
-			.then(utils.mkdir(path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build')))
+			.then(utils.mkdir(path.resolve(__dirname, '.tmp-build')))
 			.then(resolve)
 			.catch(reject)
 		})
@@ -56,17 +58,17 @@ utils.pass()
 })
 // Compile sketch
 .then(utils.execute(
-	path.resolve('node_modules', 'npm-arduino-builder', 'arduino-builder', 'arduino-builder') + ' ' +
+	path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'arduino-builder') + ' ' +
 	'-hardware="' + path.resolve('node_modules') + '" ' +
-	'-hardware="' + path.resolve('node_modules', 'npm-arduino-builder', 'arduino-builder', 'hardware') + '" ' +
+	'-hardware="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'hardware') + '" ' +
 	'-libraries="' + path.resolve('node_modules') + '" ' +
-	'-tools="' + path.resolve('node_modules', 'npm-arduino-avr-gcc', 'tools') + '" ' +
-	'-tools="' + path.resolve('node_modules', 'npm-arduino-builder', 'arduino-builder', 'tools') + '" ' +
+	'-tools="' + path.resolve(utils.modulePath('npm-arduino-avr-gcc'), 'tools') + '" ' +
+	'-tools="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'tools') + '" ' +
 	'-fqbn="quirkbot-arduino-hardware:avr:quirkbot" ' +
 	'-ide-version=10607 ' +
-	'-build-path="' + path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build') + '" ' +
+	'-build-path="' + path.resolve(__dirname, '.tmp-build') + '" ' +
 	'-verbose ' +
-	path.resolve('node_modules', 'quirkbot-self-test', 'firmware', 'firmware.ino')
+	path.resolve(__dirname, 'firmware', 'firmware.ino')
 ))
 // Try to enable bootloader Mode
 .then(function () {
@@ -159,15 +161,15 @@ utils.pass()
 // Upload
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var command = path.resolve('node_modules', 'npm-arduino-avrdude', 'tools', 'avrdude-6.0.1', 'bin', 'avrdude') + ' ' +
-		'-C' + path.resolve('node_modules', 'npm-arduino-avrdude', 'tools', 'avrdude-6.0.1', 'etc', 'avrdude.conf') + ' ' +
+		var command = path.resolve(utils.modulePath('npm-arduino-avrdude'), 'tools', 'avrdude-6.0.1', 'bin', 'avrdude') + ' ' +
+		'-C' + path.resolve(utils.modulePath('npm-arduino-avrdude'), 'tools', 'avrdude-6.0.1', 'etc', 'avrdude.conf') + ' ' +
 		'-v ' +
 		'-patmega32u4 ' +
 		'-cavr109 ' +
 		'-b57600 ' +
 		'-D ' +
 		'-P' + uploadComPort + ' ' +
-		'-Uflash:w:' + path.resolve('node_modules', 'quirkbot-self-test', '.tmp-build', 'firmware.ino.hex')  + ':i ';
+		'-Uflash:w:' + path.resolve(__dirname, '.tmp-build', 'firmware.ino.hex')  + ':i ';
 
 		utils.pass()
 		.then(utils.execute(command))
