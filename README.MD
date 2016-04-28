@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.1.4)
+Quirkbot firmware upload in production (v1.1.5)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -29,9 +29,16 @@ Make sure there is a Quirkbot turned ON and connected to the computer. Use the "
 ---
 #### 05 - Run the script
 Make sure you are on the root of the directory.
-Run the script, passing the COM port as an argument, eg:
+Run the script, passing the COM port as an argument
+
+Example on Windows:
 ```
 $ node node_modules\quirkbot-self-test\script.js "COM3"
+```
+
+Example on Mac:
+```
+$ node node_modules/quirkbot-self-test/script.js "/dev/cu.usbmodem1411"
 ```
 
 If the script is executed correctly, you should see an output like this.
