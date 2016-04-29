@@ -112,13 +112,13 @@ utils.pass()
 		var count = 0;
 		var countAndScheduleCheck = function() {
 			count++;
-			if(count >= 100){
+			if(count >= 10){
 				console.log('No device refresh')
 				uploadComPort = comPort;
 				resolve()
 			}
 			else{
-				setTimeout(check, 30);
+				setTimeout(check, 300);
 			}
 		}
 
