@@ -1,9 +1,23 @@
-Quirkbot firmware upload in production (v1.2.1)
+Quirkbot firmware upload in production (v1.3.1)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
 
 If the the upload is successful, the id will also be appended to a ```UUIDs.txt```, stored in the root of this repository. After the production cycle, please send us back the ```UUIDs.txt``` so we can have control of every Quirkbot produced.
+
+
+Bootloader
+============
+This script assumes that the Quirkbot has the "Quirkbot Bootloader" burned.
+
+The latest version of the bootloader .hex can be downloaded [here](https://raw.githubusercontent.com/Quirkbot/QuirkbotArduinoHardware/41ca99f2e6e46b5d9ea0aa557eb9d9cbc7ee5a7f/avr/bootloaders/quirkbot/QuirkbotBootloader.hex).
+
+When burning the bootloader, please use the following settings:
+- Low fuses: `0xff`
+- High fuses: `0xd8`
+- Extended fuses: `0xce`
+- Unlock bits: `0x3F`
+- Lock bits: `0x2F`
 
 Upload Instructions
 ============
@@ -25,7 +39,7 @@ This may take a few minutes.
 $ npm install quirkbot-self-test
 ```
 ---
-#### 04 - Make note of the Quirkbots COM port
+#### 04 - Make note of the Quirkbot's COM port
 
 Make sure there is a Quirkbot turned ON and connected to the computer. Use the "Device Manager" to discover what is the port it is connected to. On Windows, it should be something like ```COM3```,```COM4```,```COM5```, etc.
 
