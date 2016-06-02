@@ -1,6 +1,6 @@
 {
   "name": "quirkbot-self-test",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Quirkbot Self Test Program",
   "author": "Paulo Barcelos <paulo@quirkbot.com>",
   "dependencies": {
@@ -10,7 +10,8 @@
     "npm-arduino-builder": "1.3.8-gz",
     "quirkbot-arduino-hardware": "0.4.3",
     "quirkbot-arduino-library": "2.4.0",
-    "serialport-dirty-win7-fix": "0.0.3"
+    "serialport-dirty-win7-fix": "0.0.3",
+    "serialport": "3.1.2",
   },
   "scripts": {
     "start": "node script.js"

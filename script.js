@@ -12,6 +12,8 @@ var comPort = process.argv[2];
 var uploadComPort = comPort;
 var portsBeforeReset = [];
 
+var isWin = /^win/.test(process.platform);
+
 
 if(!comPort){
 	console.log('ERROR: You need to inform the COM port!');
@@ -73,7 +75,7 @@ utils.pass()
 // Try to enable bootloader Mode
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var sp = require("serialport-dirty-win7-fix");
+		var sp = isWin ? require("serialport-dirty-win7-fix") : require("serialport");
 
 		sp.list(function (err, ports) {
 			if(err){
@@ -108,7 +110,7 @@ utils.pass()
 })
 .then(function () {
 	return new Promise(function(resolve, reject) {
-		var sp = require("serialport-dirty-win7-fix");
+		var sp = isWin ? require("serialport-dirty-win7-fix") : require("serialport");
 		var count = 0;
 		var countAndScheduleCheck = function() {
 			count++;
