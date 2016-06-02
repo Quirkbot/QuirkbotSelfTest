@@ -230,7 +230,7 @@ Led leftMouth;
 Led rightEye;
 Led rightMouth;
 ServoMotor servo1;
-ServoMotor servo2
+ServoMotor servo2;
 
 void setup(){
 	// Setup multiplex control pins
