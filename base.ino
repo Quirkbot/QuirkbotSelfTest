@@ -184,8 +184,8 @@ bool testSinglePadInput(int pad, int route, int source){
 void success(){
 	while(true){
 		wdt_reset();
-        allLedsOn();
-    }
+		allLedsOn();
+	}
 }
 void fail(){
 	while(true){
@@ -213,64 +213,120 @@ void allLedsOff(){
 	PORTB &= ~(1<<0);
 }
 
+CircuitTouch horn;
+Converter amplify1;
+Converter amplify2;
+Converter converter1;
+Converter converter2;
+Converter converter3;
+LightSensor lightSensor1;
 Wave wave1;
 Wave wave2;
-Wave wave3;
-Wave wave4;
-Led led1;
-Led led2;
-Led led3;
-Led led4;
-ServoMotor servoMotor1;
-ServoMotor servoMotor2;
+DualColorLed leftArm;
+DualColorLed rightArm;
+DualColorLed rightLeg;
+Led leftEye;
+Led leftMouth;
+Led rightEye;
+Led rightMouth;
+ServoMotor servo1;
+ServoMotor servo2
 
 void setup(){
-  // Setup multiplex control pins
-  pinMode(BP4, OUTPUT);
-  pinMode(BP5, OUTPUT);
-  pinMode(BP6, OUTPUT);
+	// Setup multiplex control pins
+	pinMode(BP4, OUTPUT);
+	pinMode(BP5, OUTPUT);
+	pinMode(BP6, OUTPUT);
 
-  // Test and if ok, turn all LEDs on and stop in a infinite loop
-  if(test()){
-    success();
-  }
+	// Test and if ok, turn all LEDs on and stop in a infinite loop
+	if(test()){
+		success();
+	}
 
-  /** GENERATED UUID **/
-  // If we got here it means the test was ok
+	/** GENERATED UUID **/
+	// If we got here it means the test was ok
 
-  wave1.length = 0.8;
-  wave1.type = WAVE_SINE;
-  wave1.min = 0.25;
-  wave1.max = 0.75;
+	// Program
+	horn.place = H;
+	horn.sensitivity = 0;
+	horn.min = 0;
+	horn.max = 1;
 
-  wave2.length = 0.4;
-  wave2.type = WAVE_SINE;
-  wave2.min = 0.25;
-  wave2.max = 0.75;
+	amplify1.in.connect(wave1.out);
+	amplify1.inMin = 0.25;
+	amplify1.inMax = 0.75;
+	amplify1.outMin = 0;
+	amplify1.outMax = 1;
 
-  wave3.length = 0.8;
-  wave3.type = WAVE_SINE;
+	amplify2.in.connect(wave2.out);
+	amplify2.inMin = 0.25;
+	amplify2.inMax = 0.75;
+	amplify2.outMin = 0;
+	amplify2.outMax = 1;
 
-  wave4.length = 0.4;
-  wave4.type = WAVE_SINE;
+	converter1.in.connect(horn.out);
+	converter1.inMin = 0;
+	converter1.inMax = 1;
+	converter1.outMin = 0.8;
+	converter1.outMax = 0.4;
 
-  led1.light.connect(wave3.out);
-  led1.place = LE;
+	converter2.in.connect(horn.out);
+	converter2.inMin = 0;
+	converter2.inMax = 1;
+	converter2.outMin = 0.4;
+	converter2.outMax = 0.8;
 
-  led2.light.connect(wave4.out);
-  led2.place = RE;
+	converter3.in.connect(lightSensor1.out);
+	converter3.inMin = 0.98;
+	converter3.inMax = 1;
+	converter3.outMin = 0;
+	converter3.outMax = 1;
 
-  led3.light.connect(wave3.out);
-  led3.place = LM;
+	lightSensor1.place = LL;
+	lightSensor1.min = 1;
+	lightSensor1.max = 0;
 
-  led4.light.connect(wave4.out);
-  led4.place = RM;
+	wave1.length.connect(converter1.out);
+	wave1.type = WAVE_SINE;
+	wave1.min = 0.25;
+	wave1.max = 0.75;
+	wave1.offset = 0;
 
-  servoMotor1.position.connect(wave1.out);
-  servoMotor1.place = SERVO_BP1;
+	wave2.length.connect(converter2.out);
+	wave2.type = WAVE_SINE;
+	wave2.min = 0.25;
+	wave2.max = 0.75;
+	wave2.offset = 0;
 
-  servoMotor2.position.connect(wave2.out);
-  servoMotor2.place = SERVO_BP2;
+	leftArm.light = 1;
+	leftArm.color.connect(amplify1.out);
+	leftArm.place = LA;
+
+	rightArm.light = 1;
+	rightArm.color.connect(amplify2.out);
+	rightArm.place = RA;
+
+	rightLeg.light.connect(converter3.out);
+	rightLeg.color.connect(amplify2.out);
+	rightLeg.place = RL;
+
+	leftEye.light.connect(amplify1.out);
+	leftEye.place = LE;
+
+	leftMouth.light.connect(horn.out);
+	leftMouth.place = LM;
+
+	rightEye.light.connect(amplify2.out);
+	rightEye.place = RE;
+
+	rightMouth.light.connect(horn.out);
+	rightMouth.place = RM;
+
+	servo1.position.connect(wave1.out);
+	servo1.place = SERVO_BP1;
+
+	servo2.position.connect(wave2.out);
+	servo2.place = SERVO_BP2;
 
 }
 
