@@ -86,14 +86,20 @@ utils.pass()
 			var serialPort = new sp.SerialPort(comPort, {
 				baudrate: 57600
 			});
-			serialPort.on("open", function () {
+			serialPort.on("open", function (err) {
+				if(err){
+					console.log('Serial open error.');
+					return reject(err);
+				}
 				serialPort.write([0xb], function(err, results) {
 					if(err){
+						console.log('Serial write error.');
 						return reject(err);
 					}
 
-					serialPort.close(function () {
+					serialPort.close(function (err) {
 						if(err){
+							console.log('Serial close error.');
 							return reject(err);
 						}
 						setTimeout(resolve,200 );
@@ -102,6 +108,7 @@ utils.pass()
 				});
 			});
 			serialPort.on("error", function () {
+				console.log('Serial error event.');
 				reject(arguments);
 			});
 		});
