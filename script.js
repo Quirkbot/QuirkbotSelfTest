@@ -75,7 +75,7 @@ utils.pass()
 		'-build-path="' + path.resolve(__dirname, '.tmp-build') + '" ' +
 		'-verbose ' +
 		path.resolve(__dirname, 'firmware', 'firmware.ino')
-	)
+	))
 })
 // Try to enable bootloader Mode
 .then(function () {
