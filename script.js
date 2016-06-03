@@ -46,6 +46,7 @@ utils.pass()
 // Create (if needed) temp folder
 .then(function () {
 	return new Promise(function(resolve, reject) {
+		console.log('Creating temp folder...');
 		utils.pass()
 		.then(utils.readDir(path.resolve(__dirname, '.tmp-build')))
 		.then(resolve)
@@ -59,26 +60,32 @@ utils.pass()
 
 })
 // Compile sketch
-.then(utils.execute(
-	path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'arduino-builder') + ' ' +
-	'-hardware="' + path.resolve('node_modules') + '" ' +
-	'-hardware="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'hardware') + '" ' +
-	'-libraries="' + path.resolve('node_modules') + '" ' +
-	'-tools="' + path.resolve(utils.modulePath('npm-arduino-avr-gcc'), 'tools') + '" ' +
-	'-tools="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'tools') + '" ' +
-	'-fqbn="quirkbot-arduino-hardware:avr:quirkbot" ' +
-	'-ide-version=10607 ' +
-	'-build-path="' + path.resolve(__dirname, '.tmp-build') + '" ' +
-	'-verbose ' +
-	path.resolve(__dirname, 'firmware', 'firmware.ino')
-))
+.then(function functionName() {
+	console.log('Trying to compile...');
+	return utils.pass()
+	.then(utils.execute(
+		path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'arduino-builder') + ' ' +
+		'-hardware="' + path.resolve('node_modules') + '" ' +
+		'-hardware="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'hardware') + '" ' +
+		'-libraries="' + path.resolve('node_modules') + '" ' +
+		'-tools="' + path.resolve(utils.modulePath('npm-arduino-avr-gcc'), 'tools') + '" ' +
+		'-tools="' + path.resolve(utils.modulePath('npm-arduino-builder'), 'arduino-builder', 'tools') + '" ' +
+		'-fqbn="quirkbot-arduino-hardware:avr:quirkbot" ' +
+		'-ide-version=10607 ' +
+		'-build-path="' + path.resolve(__dirname, '.tmp-build') + '" ' +
+		'-verbose ' +
+		path.resolve(__dirname, 'firmware', 'firmware.ino')
+	)
+})
 // Try to enable bootloader Mode
 .then(function () {
 	return new Promise(function(resolve, reject) {
+		console.log('Trying to enable bootloader...');
 		var sp = isWin ? require("serialport-dirty-win7-fix") : require("serialport");
 
 		sp.list(function (err, ports) {
 			if(err){
+				console.log('Serial list error.');
 				return reject(err);
 			}
 			portsBeforeReset = ports;
@@ -141,7 +148,7 @@ utils.pass()
 
 					if(disappeared.length){
 						disappeared = disappeared[0];
-						//console.log('A device disappeared:', disappeared);
+						console.log('A device disappeared:', disappeared);
 						for (var i = portsBeforeReset.length-1; i >= 0; i--) {
 							if(portsBeforeReset[i].comName == disappeared.comName){
 								portsBeforeReset.splice(i, 1);
@@ -154,7 +161,7 @@ utils.pass()
 					var appeared = objectArrayDiffByKey(ports, portsBeforeReset, 'comName');
 					if(appeared.length){
 						appeared = appeared[0];
-						//console.log('A device appeared:', appeared);
+						console.log('A device appeared:', appeared);
 
 						uploadComPort = appeared.comName;
 						resolve();
@@ -170,6 +177,7 @@ utils.pass()
 // Upload
 .then(function () {
 	return new Promise(function(resolve, reject) {
+		console.log('Trying to upload...');
 		var command = path.resolve(utils.modulePath('npm-arduino-avrdude'), 'tools', 'avrdude-6.0.1', 'bin', 'avrdude') + ' ' +
 		'-C' + path.resolve(utils.modulePath('npm-arduino-avrdude'), 'tools', 'avrdude-6.0.1', 'etc', 'avrdude.conf') + ' ' +
 		'-v ' +
@@ -188,6 +196,7 @@ utils.pass()
 		})
 		.catch(function (error) {
 			clearTimeout(timer)
+			console.log('Error on upload.')
 			reject(error)
 		})
 
@@ -200,6 +209,7 @@ utils.pass()
 	return new Promise(function(resolve, reject){
 		var out = result.stdout + result.stderr;
 		if(out.indexOf('Thank you') === -1){
+			console.log('No "thank you" message.');
 			reject(result);
 		}
 		else{
