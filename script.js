@@ -35,7 +35,7 @@ utils.pass()
 .then(function (data) {
 	var codeString = '';
 	codeString += 'Bot::forceSaveUuid=true;'+endOfLine;
-	for (var i = 0; i < UUID.length; i++) {
+	for (var i = 4; i < UUID.length; i++) {
 		codeString += 'Bot::uuid['+i+']=\''+UUID[i]+'\';'+endOfLine;
 	}
 	var code = data.replace('/** GENERATED UUID **/', codeString);
