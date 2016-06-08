@@ -2,6 +2,24 @@
 #include <avr/wdt.h>
 
 // Defines ---------------------------------------------------------------------
+#define LE	8	// Left Eye		 	(PB4)	ADC11
+#define RE	A5	// Right Eye		(PF0)	ADC0
+#define LLF	9	// Left Leg Front	(PB5)	ADC12	PWM (16BIT)
+#define RLF	11	// Right Leg Front	(PB7)			PWM (8/16BIT)
+#define RAF	5	// Right Arm Front	(PC6)			PWM (HS)
+#define HF	13	// Horn Front		(PC7)			PWM (10BIT)
+#define LAF	10	// Left Arm Front	(PB6)	ADC13	PWM (16BIT)
+#define LLB	A0	// Left Leg Back	(PF7)	ADC7
+#define RLB	A4	// Right Leg Back	(PF1)	ADC1
+#define RAB	A3	// Right Arm Back	(PF4)	ADC4
+#define HB	A2	// Horn Back		(PF5)	ADC5
+#define LAB	A1	// Left Arm Back	(PF6)	ADC6
+#define BP1	A7	// Back Pack 1		(PD7)	ADC10	PWM (HS)	// or digital 6
+#define BP2	A11	// Back Pack 2		(PD6)	ADC9                    // or digital 12
+#define BP3	0	// Back Pack 3		(PD2)	RXD1
+#define BP4	2	// Back Pack 4		(PD1)	SDA
+#define BP5	3	// Back Pack 5		(PD0)	SCL
+#define BP6	1 	// Back Pack 6		(PD3)	TXD1
 #define PULL_UP_PIN 4
 
 // Multiplex -------------------------------------------------------------------
@@ -21,14 +39,14 @@ void _mux(int s0, int s1, int s2){
 }
 void mux(int pin){
 	switch (pin) {
-		case 0: _mux(MUX_0); break;
-		case 1: _mux(MUX_1); break;
-		case 2: _mux(MUX_2); break;
-		case 3: _mux(MUX_3); break;
-		case 4: _mux(MUX_4); break;
-		case 5: _mux(MUX_5); break;
-		case 6: _mux(MUX_6); break;
-		case 7: _mux(MUX_7); break;
+		case 0:	_mux(MUX_0); break;
+		case 1:	_mux(MUX_1); break;
+		case 2:	_mux(MUX_2); break;
+		case 3:	_mux(MUX_3); break;
+		case 4:	_mux(MUX_4); break;
+		case 5:	_mux(MUX_5); break;
+		case 6:	_mux(MUX_6); break;
+		case 7:	_mux(MUX_7); break;
 	}
 }
 // Entry -----------------------------------------------------------------------
@@ -63,20 +81,20 @@ bool testSinglePadOutput(int pad, int route, int bp){
 	mux(route);
 	pinMode(pad, OUTPUT);
 	digitalWrite(pad, HIGH);
-	delay(5);
+	(delay)(5);
 	if(!digitalRead(bp)) return false;
 
 
 	digitalWrite(pad, LOW);
-	delay(5);
+	(delay)(5);
 	if(digitalRead(bp)) return false;
 
 	digitalWrite(pad, HIGH);
-	delay(5);
+	(delay)(5);
 	if(!digitalRead(bp)) return false;
 
 	digitalWrite(pad, LOW);
-	delay(5);
+	(delay)(5);
 	if(digitalRead(bp)) return false;
 
 	return true;
@@ -102,9 +120,9 @@ bool testSinglePadMakey(int pad, int route, int bp){
 
 	pinMode(pad, OUTPUT);
 	digitalWrite(pad, LOW);
-	delay(5);
+	(delay)(5);
 	pinMode(pad, INPUT);
-	delay(5);
+	(delay)(5);
 	if(digitalRead(pad)) return false;
 
 	// test for high
@@ -112,9 +130,9 @@ bool testSinglePadMakey(int pad, int route, int bp){
 
 	pinMode(pad, OUTPUT);
 	digitalWrite(pad, LOW);
-	delay(5);
+	(delay)(5);
 	pinMode(pad, INPUT);
-	delay(20);
+	(delay)(5);
 	if(!digitalRead(pad)) return false;
 
 
@@ -126,13 +144,13 @@ bool testBackPadsInput(){
 	pinMode(BP2, OUTPUT);
 
 	if(!testSinglePadInput(HB,  5, BP1)) return false;
-	delay(5);
+	(delay)(5);
 	if(!testSinglePadInput(LAB, 6, BP1)) return false;
-	delay(5);
+	(delay)(5);
 	if(!testSinglePadInput(LLB, 7, BP1)) return false;
-	delay(5);
+	(delay)(5);
 	if(!testSinglePadInput(RLB, 5, BP2)) return false;
-	delay(5);
+	(delay)(5);
 	if(!testSinglePadInput(RAB, 6, BP2)) return false;
 
 	return true;
@@ -142,12 +160,12 @@ bool testSinglePadInput(int pad, int route, int source){
 	pinMode(pad, INPUT);
 	pinMode(source, OUTPUT);
 	digitalWrite(source, LOW);
-	delay(5);
+	(delay)(5);
 
 	if(analogRead(pad) != 0) return false;
 
 	digitalWrite(source, HIGH);
-	delay(5);
+	(delay)(5);
 
 	if(analogRead(pad) > 600 || analogRead(pad) < 400) return false;
 
@@ -155,15 +173,37 @@ bool testSinglePadInput(int pad, int route, int source){
 }
 // Result feedback -------------------------------------------------------------
 void success(){
+	allLedsOn();
+	while(true){
+		(delay)(200);
+		wdt_reset();
+	}
+
+}
+void fail(){
 	while(true){
 		wdt_reset();
 		allLedsOn();
+		(delay)(200);
+		allLedsOff();
+		(delay)(200);
 	}
 }
-
+void allLedsOff(){
+	pinMode(LE, OUTPUT);
+	pinMode(RE, OUTPUT);
+	DDRD |= (1<<5);
+	DDRB |= (1<<0);
+	digitalWrite(LE, LOW);
+	digitalWrite(RE, LOW);
+	PORTD &= ~(1<<5);
+	PORTB &= ~(1<<0);
+}
 void allLedsOn(){
 	pinMode(LE, OUTPUT);
 	pinMode(RE, OUTPUT);
+	DDRD |= (1<<5);
+	DDRB |= (1<<0);
 	digitalWrite(LE, HIGH);
 	digitalWrite(RE, HIGH);
 	PORTD |= (1<<5);
@@ -185,17 +225,15 @@ ServoMotor servo1;
 ServoMotor servo2;
 
 
-void setup(){
+void setup() {
 	// Setup multiplex control pins
+	pinMode(BP3, OUTPUT);
 	pinMode(BP4, OUTPUT);
 	pinMode(BP5, OUTPUT);
-	pinMode(BP6, OUTPUT);
 
-	// Test and if ok, turn all LEDs on and stop in a infinite loop
-	wdt_reset();
-	if(test()){
-		success();
-	}
+	// Test and display result
+	if(test()) success();
+
 
 	/** GENERATED UUID **/
 	// If we got here it means the test was ok
@@ -262,8 +300,8 @@ void setup(){
 	pinMode(LLB, OUTPUT);
 	pinMode(RLF, OUTPUT);
 	pinMode(RLB, OUTPUT);
-}
 
+}
 void loop(){
 	if(horn.out.get() > 0.5){
 		PORTD |= (1<<5);
