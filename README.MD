@@ -1,4 +1,4 @@
-Quirkbot firmware upload in production (v1.3.8)
+Quirkbot firmware upload in production (v1.3.9)
 ============
 
 This script generates and uploads a self-test firmware for the Quirkbots. Each firmware contains a unique id that will be stored in the Quirkbot's eeprom.
@@ -10,14 +10,14 @@ Bootloader
 ============
 This script assumes that the Quirkbot has the "Quirkbot Bootloader" burned.
 
-The latest version of the bootloader .hex can be downloaded [here](https://raw.githubusercontent.com/Quirkbot/QuirkbotArduinoHardware/41ca99f2e6e46b5d9ea0aa557eb9d9cbc7ee5a7f/avr/bootloaders/quirkbot/QuirkbotBootloader.hex).
+The latest version of the bootloader .hex can be downloaded [here](https://raw.githubusercontent.com/Quirkbot/QuirkbotArduinoHardware/efcce243c2a0d70d20474290305bbbe1460d7962/avr/bootloaders/quirkbot/QuirkbotBootloader.hex).
 
 When burning the bootloader, please use the following settings:
 - Low fuses: `0xff`
 - High fuses: `0xd8`
 - Extended fuses: `0xce`
 - Unlock bits: `0x3F`
-- Lock bits: `0x2F`
+- Lock bits: `0x3F`
 
 Upload Instructions
 ============

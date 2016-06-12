@@ -1,6 +1,6 @@
 {
   "name": "quirkbot-self-test",
-  "version": "1.3.8",
+  "version": "1.3.9",
   "description": "Quirkbot Self Test Program",
   "author": "Paulo Barcelos <paulo@quirkbot.com>",
   "dependencies": {
@@ -8,7 +8,7 @@
     "npm-arduino-avr-gcc": "4.8.1-arduino5-gz",
     "npm-arduino-avrdude": "6.0.1-arduino5-gz",
     "npm-arduino-builder": "1.3.8-gz",
-    "quirkbot-arduino-hardware": "0.4.3",
+    "quirkbot-arduino-hardware": "0.4.4",
     "quirkbot-arduino-library": "2.4.0",
     "serialport-dirty-win7-fix": "0.0.3",
     "serialport": "3.1.2"
